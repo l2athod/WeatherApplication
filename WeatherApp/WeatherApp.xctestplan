@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "A6ADBC3C-3D65-4279-8DEC-565E393F5AFD",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:WeatherApp.xcodeproj",
+      "identifier" : "AA6820B42AD3FF6E00AD467F",
+      "name" : "WeatherApp"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:WeatherApp.xcodeproj",
+        "identifier" : "AA46AE4B2ADC32A600FD6AED",
+        "name" : "WeatherAppTests"
+      }
+    }
+  ],
+  "version" : 1
+}
