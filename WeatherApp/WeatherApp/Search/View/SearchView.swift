@@ -68,8 +68,8 @@ class SearchView: UIView {
     private let searchView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .collectionViewCellColor
-        view.applyShadow(color: .shadowColor, opacity: 0.3, radius: 4, offset: CGSize(width: 0, height: 4))
+        view.backgroundColor = ColorTheme.collectionViewCellColor
+        view.applyShadow(color: ColorTheme.shadowColor, opacity: 0.3, radius: 4, offset: CGSize(width: 0, height: 4))
         view.layer.cornerRadius = 20
         return view
     }()
@@ -108,7 +108,7 @@ class SearchView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .backgroundColor
+        backgroundColor = ColorTheme.backgroundColor
         addSubview(scrollView)
         scrollView.addSubview(stackView)
         scrollView.addSubview(cardCollectionView)

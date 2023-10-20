@@ -4,16 +4,16 @@ import CoreLocation
 
 protocol LocationService {
     var location: CLLocation? { get set }
+    var city: String? { get set }
     var error: Error? { get set }
     func requestLocation()
     func isValidLocation(coordinate: CLLocationCoordinate2D) -> Bool
-    func getUserLocation(location: CLLocation, completion: (WeatherApp.WeatherDataResponse?, CLLocation?) -> Void)
-    func getWeatherInfo(locationPlace: String, completion: @escaping (WeatherApp.WeatherDataResponse?) -> Void)
 }
 
 class LocationServiceMock: LocationService, LocationManagerDelegate {
     private var locationManager: LocationManager
     var location: CLLocation?
+    var city: String?
     var error: Error?
     
     init(locationManager: LocationManager) {
@@ -25,20 +25,13 @@ class LocationServiceMock: LocationService, LocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     
-    func locationUpdated(location: CLLocation) {
+    func locationUpdated(location: CLLocation, city: String) {
         self.location = location
+        self.city = city
     }
     
     func locationError(error: Error) {
         self.error = error
-    }
-    
-    func getUserLocation(location: CLLocation, completion: (WeatherApp.WeatherDataResponse?, CLLocation?) -> Void) {
-        completion(weatherDataResponseMock, location)
-    }
-    
-    func getWeatherInfo(locationPlace: String, completion: @escaping (WeatherApp.WeatherDataResponse?) -> Void) {
-        completion(weatherDataResponseMock)
     }
     
     func isValidLocation(coordinate: CLLocationCoordinate2D) -> Bool {

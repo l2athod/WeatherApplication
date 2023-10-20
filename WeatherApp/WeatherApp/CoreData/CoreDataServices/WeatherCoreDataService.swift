@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-protocol ICoreDataService {
+protocol IWeatherCoreDataService {
     func fetchById(city: String) -> DetailCardModel?
     func fetch() -> [DetailCardModel]?
     func insert(data: DetailCardModel) -> Bool
@@ -9,7 +9,7 @@ protocol ICoreDataService {
     func delete(city: String) -> Bool
 }
 
-final class CoreDataService: ICoreDataService {
+final class WeatherCoreDataService: IWeatherCoreDataService {
     func fetchById(city: String) -> DetailCardModel? {
         guard let cdDetailCardModel: CDDetailCard = fetchById(city: city) else {
             return nil

@@ -6,9 +6,9 @@ protocol SearchViewModelProtocol: AnyObject {
 
 class SearchViewModel: SearchViewModelProtocol {
     private var weatherService: IWeatherService
-    private var detailCoreDataService: ICoreDataService
+    private var detailCoreDataService: IWeatherCoreDataService
     
-    init(weatherService: IWeatherService = WeatherService(), detailCoreDataService: ICoreDataService = CoreDataService()) {
+    init(weatherService: IWeatherService = WeatherService(), detailCoreDataService: IWeatherCoreDataService = WeatherCoreDataService()) {
         self.weatherService = weatherService
         self.detailCoreDataService = detailCoreDataService
     }

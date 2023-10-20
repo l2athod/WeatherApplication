@@ -56,7 +56,7 @@ class WeatherDetailViewCell: UICollectionViewCell {
     
     func configure(indexPath: IndexPath? = nil, data: TodayWeatherModel) {
         if indexPath?.row == 0 {
-            backgroundColor = .collectionViewCellColor
+            backgroundColor = ColorTheme.collectionViewCellColor
             tempreatureInfoLabel.textColor = .white
         } else {
             backgroundColor = .white

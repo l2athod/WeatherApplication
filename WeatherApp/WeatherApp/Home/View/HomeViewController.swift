@@ -66,15 +66,15 @@ class HomeViewController: UIViewController {
             guard let respone = response else { return }
             self?.weatherForecaseData = respone
             let todayforecast = respone.list?.filter({
-                let date = $0.dtTxt?.convertDateFormat(from: "yyyy-MM-dd HH:mm:ss", to: "yyyy-MM-dd")
+                let date = DateStringFormatter.convertDateFormat(date: $0.dtTxt!, from: "yyyy-MM-dd HH:mm:ss", to: "yyyy-MM-dd")
                 let calender = Calendar.current
                 let currentdate = Date()
-                return calender.isDate(date!.convertDate(format: "yyyy-MM-dd"), inSameDayAs: currentdate)
+                return calender.isDate(DateStringFormatter.convertDate(date: date!, format: "yyyy-MM-dd"), inSameDayAs: currentdate)
             })
             
             let todayforecastmodel = todayforecast?.compactMap({ data in
                 let image = WeatherImage(rawValue: data.weather!.first!.icon!)!.weatherImage
-                let time = data.dtTxt?.convertDateFormat(from: "yyyy-MM-dd HH:mm:s", to: "hh:mma")
+                let time = DateStringFormatter.convertDateFormat(date:data.dtTxt!, from: "yyyy-MM-dd HH:mm:s", to: "hh:mma")
                 let tempreature = Int((data.main?.temp)! - 273)
                 let tempreatureInfoText = self?.getInfoText(time: time!, tempreature: String(tempreature))
                 return TodayWeatherModel(image: image, tempreatureInfo: tempreatureInfoText)

@@ -51,8 +51,8 @@ class WeatherForecastCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        self.backgroundColor = .collectionViewCellColor
-        self.applyShadow(color: .shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
+        self.backgroundColor = ColorTheme.collectionViewCellColor
+        self.applyShadow(color: ColorTheme.shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
         self.layer.cornerRadius = 16
 
         contentView.addSubview(weatherReportStackView)

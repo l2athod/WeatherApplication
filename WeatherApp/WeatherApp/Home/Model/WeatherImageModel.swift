@@ -14,4 +14,3 @@ let weatherImageData: [WeatherImageModel] = [
     .init(image: "fewclouds", title: "Moon Cloud"),
     .init(image: "mist", title: "Fast Wind"),
 ]
-

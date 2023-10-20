@@ -59,7 +59,7 @@ class WeatherReportView: UIView {
         let collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.clipsToBounds = true
-        collectionView.applyShadow(color: .shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
+        collectionView.applyShadow(color: ColorTheme.shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         return collectionView
@@ -90,7 +90,7 @@ class WeatherReportView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .backgroundColor
+        backgroundColor = ColorTheme.backgroundColor
         addSubview(scrollView)
         scrollView.addSubview(forecastLabel)
         scrollView.addSubview(horizontalStackView)
@@ -118,9 +118,9 @@ class WeatherReportView: UIView {
             weatherForecastCollectionView.topAnchor.constraint(equalTo: todayForecastCollectionView.bottomAnchor, constant: 24),
             weatherForecastCollectionView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 0),
             weatherForecastCollectionView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: 0),
-            weatherForecastCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            weatherForecastCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
-            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
         
         todayForecastCollectionView.register(WeatherDetailViewCell.self, forCellWithReuseIdentifier: WeatherDetailViewCell.identifier)

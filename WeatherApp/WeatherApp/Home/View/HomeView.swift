@@ -18,10 +18,10 @@ class HomeView: UIView {
         
         let view = UICollectionView(frame: bounds, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .collectionViewBackgroundColor
+        view.backgroundColor = ColorTheme.collectionViewBackgroundColor
         view.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         view.clipsToBounds = true
-        view.applyShadow(color: .shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
+        view.applyShadow(color: ColorTheme.shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
         view.showsHorizontalScrollIndicator = false
         return view
     }()
@@ -118,7 +118,7 @@ class HomeView: UIView {
         button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
         button.setTitle(viewReportButtonText, for: .normal)
         button.addTarget(self, action: #selector(viewReportTapped(_:)), for: .touchUpInside)
-        button.setTitleColor(.viewReportColor, for: .normal)
+        button.setTitleColor(ColorTheme.viewReportColor, for: .normal)
         button.titleLabel?.font = .robotoSlabLight(ofSize: 18)
         return button
     }()
@@ -140,7 +140,7 @@ class HomeView: UIView {
         let view = UICollectionView(frame: bounds, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
-        view.applyShadow(color: .shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
+        view.applyShadow(color: ColorTheme.shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
         view.showsHorizontalScrollIndicator = false
         view.backgroundColor = .clear
         return view
@@ -167,7 +167,7 @@ class HomeView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .backgroundColor
+        backgroundColor = ColorTheme.backgroundColor
         addSubview(weatherImageCollectionView)
         addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -207,7 +207,7 @@ class HomeView: UIView {
     }
     
     @objc private func updateDateLabel() {
-        dateLabel.text = Date().convertToString(format: "MMM dd, yyyy")
+        dateLabel.text = DateStringFormatter.convertToString(date: Date(), format: "MMM dd, yyyy")
     }
     
     @objc private func viewReportTapped(_ sender: UIButton) {

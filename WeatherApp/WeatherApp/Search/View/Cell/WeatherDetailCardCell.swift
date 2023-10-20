@@ -66,7 +66,7 @@ class WeatherDetailCardCell: UICollectionViewCell {
     
     private func setupViews() {
         self.layer.cornerRadius = 16
-        self.applyShadow(color: .shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
+        self.applyShadow(color: ColorTheme.shadowColor, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 5))
         
         self.contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
@@ -79,7 +79,7 @@ class WeatherDetailCardCell: UICollectionViewCell {
     
     func configure(indexPath: IndexPath? = nil, data: DetailCardModel) {
         if indexPath?.row == 0 {
-            self.backgroundColor = .collectionViewCellColor
+            self.backgroundColor = ColorTheme.collectionViewCellColor
         } else {
             self.backgroundColor = .white
         }

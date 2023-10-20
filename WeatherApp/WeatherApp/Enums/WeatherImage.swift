@@ -1,5 +1,4 @@
 import Foundation
-import UIKit
 
 enum WeatherImage: String, CaseIterable {
     case clearskyL = "01d"

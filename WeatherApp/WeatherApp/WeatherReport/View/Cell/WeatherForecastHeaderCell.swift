@@ -22,7 +22,7 @@ class WeatherForecastHeadercell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        self.backgroundColor = .backgroundColor
+        self.backgroundColor = ColorTheme.backgroundColor
         contentView.addSubview(forecastLabel)
         
         NSLayoutConstraint.activate([

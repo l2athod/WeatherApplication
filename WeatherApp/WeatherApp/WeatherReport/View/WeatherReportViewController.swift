@@ -52,15 +52,15 @@ class WeatherReportViewController: UIViewController {
             
             var weatherForecastList: [WeatherForecastModel] = []
             for record in list {
-                let time = record.dtTxt?.convertDateFormat(from: "yyyy-MM-dd HH:mm:ss", to: "hh:mma")
+                let time = DateStringFormatter.convertDateFormat(date: record.dtTxt!, from: "yyyy-MM-dd HH:mm:ss", to: "hh:mma")
                 let tempreature = Int(record.main!.temp! - 273)
                 let image = WeatherImage(rawValue: record.weather!.first!.icon!)?.weatherImage
                 
                 weatherForecastList.append(WeatherForecastModel(time: time!, tempreature: tempreature, image: image!))
             }
             
-            let date = textdate.convertDate(format: "yyyy-MM-dd")
-            let day = date.convertToString(format: "EEEE")
+            let date = DateStringFormatter.convertDate(date: textdate, format: "yyyy-MM-dd")
+            let day = DateStringFormatter.convertToString(date: date, format: "EEEE")
             weatherReportModel.append(WeatherReportModel(date: date, day: day, weatherReport: weatherForecastList))
         }
 
