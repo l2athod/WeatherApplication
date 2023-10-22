@@ -31,8 +31,8 @@ enum WeatherAPIRouter : APIRouter {
     
     var queryItems: [URLQueryItem] {
         switch self{
-            case .getWeather(let city): return [URLQueryItem(name: "q", value: city), URLQueryItem(name: "appid", value: Constant.APIKey)]
-            case .getWeatherForecast(let lat, let long): return [URLQueryItem(name: "lat", value: lat), URLQueryItem(name: "lon", value: long), URLQueryItem(name: "appid", value: Constant.APIKey),]
+            case .getWeather(let city): return [URLQueryItem(name: "q", value: city), URLQueryItem(name: "appid", value: Constant.API_KEY)]
+            case .getWeatherForecast(let lat, let long): return [URLQueryItem(name: "lat", value: lat), URLQueryItem(name: "lon", value: long), URLQueryItem(name: "appid", value: Constant.API_KEY),]
         }
     }
     
