@@ -7,7 +7,7 @@ class WeatherReportView: UIView {
     private var todayWeatherforecastList: [TodayWeatherModel] = []
     private var weatherForecastList: [WeatherReportModel] = []
     
-    private lazy var scrollView: UIScrollView! = {
+    private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsVerticalScrollIndicator = false
@@ -15,7 +15,7 @@ class WeatherReportView: UIView {
         return view
     }()
     
-    private lazy var forecastLabel: UILabel! = {
+    private lazy var forecastLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .robotoSlabMedium(ofSize: 30)
@@ -24,7 +24,7 @@ class WeatherReportView: UIView {
         return label
     }()
     
-    private lazy var todayLabel: UILabel! = {
+    private lazy var todayLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = todayLabelText
@@ -33,7 +33,7 @@ class WeatherReportView: UIView {
         return label
     }()
     
-    private lazy var todayDate: UILabel! = {
+    private lazy var todayDate: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Date().formatted(date: .abbreviated, time: .omitted)
@@ -42,7 +42,7 @@ class WeatherReportView: UIView {
         return label
     }()
     
-    private lazy var horizontalStackView: UIStackView! = {
+    private lazy var horizontalStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [todayLabel, todayDate])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -50,10 +50,10 @@ class WeatherReportView: UIView {
         return stack
     }()
     
-    private lazy var todayForecastCollectionView: UICollectionView! = {
+    private lazy var todayForecastCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize =  CGSize(width: 166 , height: 85)
+        layout.itemSize = CGSize(width: 166, height: 85)
         layout.minimumInteritemSpacing = 16
         
         let collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
@@ -65,7 +65,7 @@ class WeatherReportView: UIView {
         return collectionView
     }()
     
-    private lazy var weatherForecastCollectionView: UICollectionView! = {
+    private lazy var weatherForecastCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: 340, height: 84)
@@ -176,7 +176,7 @@ extension WeatherReportView: UICollectionViewDelegateFlowLayout, UICollectionVie
             case todayForecastCollectionView:
                 return todayWeatherforecastList.count
             case weatherForecastCollectionView:
-                return weatherForecastList[section].weatherReport!.count
+                return weatherForecastList[section].weatherReport.count
             default:
                 return 1
         }
@@ -185,13 +185,13 @@ extension WeatherReportView: UICollectionViewDelegateFlowLayout, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
             case todayForecastCollectionView:
-                let cell = todayForecastCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherDetailViewCell.identifier, for: indexPath) as? WeatherDetailViewCell
-                cell?.configure(indexPath: indexPath, data: todayWeatherforecastList[indexPath.row])
-                return cell!
+                guard let cell = todayForecastCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherDetailViewCell.identifier, for: indexPath) as? WeatherDetailViewCell else { return UICollectionViewCell() }
+                cell.configure(indexPath: indexPath, data: todayWeatherforecastList[indexPath.row])
+                return cell
             case weatherForecastCollectionView:
-                let cell = weatherForecastCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherForecastCell.identifier, for: indexPath) as? WeatherForecastCell
-                cell?.configure(indexPath: indexPath, data: weatherForecastList[indexPath.section].weatherReport![indexPath.row])
-                return cell!
+                guard let cell = weatherForecastCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherForecastCell.identifier, for: indexPath) as? WeatherForecastCell else { return UICollectionViewCell() }
+                cell.configure(indexPath: indexPath, data: weatherForecastList[indexPath.section].weatherReport[indexPath.row])
+                return cell
             default:
                 return UICollectionViewCell()
         }
@@ -202,9 +202,9 @@ extension WeatherReportView: UICollectionViewDelegateFlowLayout, UICollectionVie
             case weatherForecastCollectionView:
                 switch kind {
                     case UICollectionView.elementKindSectionHeader:
-                        let cell = weatherForecastCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: WeatherForecastHeadercell.identifier, for: indexPath) as? WeatherForecastHeadercell
-                        cell?.configure(indexPath: indexPath, data: weatherForecastList[indexPath.section].day)
-                        return cell!
+                        guard let cell = weatherForecastCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: WeatherForecastHeadercell.identifier, for: indexPath) as? WeatherForecastHeadercell else { return UICollectionReusableView(frame: .zero) }
+                        cell.configure(indexPath: indexPath, data: weatherForecastList[indexPath.section].day)
+                        return cell
                     default:
                         return UICollectionReusableView(frame: .zero)
                 }

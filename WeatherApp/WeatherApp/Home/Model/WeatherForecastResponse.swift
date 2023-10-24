@@ -15,7 +15,6 @@ struct City: Decodable {
     let population, timezone, sunrise, sunset: Int?
 }
 
-
 struct List: Decodable {
     let dt: Int?
     let main: MainClass?

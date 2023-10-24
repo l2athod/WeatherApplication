@@ -37,8 +37,8 @@ final class WeatherCoreDataService: IWeatherCoreDataService {
         cdDetailCardModel.id = data.id
         cdDetailCardModel.discription = data.weatherdescription
         cdDetailCardModel.image = data.image
-        cdDetailCardModel.lat = data.lat!
-        cdDetailCardModel.long = data.long!
+        cdDetailCardModel.lat = data.lat ?? -1
+        cdDetailCardModel.long = data.long ?? -1
         cdDetailCardModel.name = data.location
         cdDetailCardModel.tempreature = data.tempreature
         
@@ -57,8 +57,8 @@ final class WeatherCoreDataService: IWeatherCoreDataService {
         }
         cdDetailCardModel.discription = data.weatherdescription
         cdDetailCardModel.image = data.image
-        cdDetailCardModel.lat = data.lat!
-        cdDetailCardModel.long = data.long!
+        cdDetailCardModel.lat = data.lat ?? -1
+        cdDetailCardModel.long = data.long ?? -1
         cdDetailCardModel.name = data.location
         cdDetailCardModel.tempreature = data.tempreature
         
@@ -86,9 +86,10 @@ final class WeatherCoreDataService: IWeatherCoreDataService {
         return false
     }
     
-    func fetchById(city: String) -> CDDetailCard? {
+    func fetchById(city: String?) -> CDDetailCard? {
+        guard let city = city else { return nil }
         let fetchRequest = NSFetchRequest<CDDetailCard>(entityName: String(describing: CDDetailCard.self))
-        fetchRequest.predicate =  NSPredicate(format: "name == %@", city)
+        fetchRequest.predicate = NSPredicate(format: "name == %@", city)
         
         do {
             let result = try PersistanceContainer.context.fetch(fetchRequest)

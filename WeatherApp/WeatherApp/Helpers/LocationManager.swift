@@ -1,9 +1,10 @@
 import MapKit
 import UIKit
 
-class LocationManager: NSObject, CLLocationManagerDelegate{
+class LocationManager: NSObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
     private override init() {}
+    
     private var manager = CLLocationManager()
     private var completion: ((CLLocation?) -> Void)?
     
@@ -47,13 +48,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate{
         }
         
         dispatchGroup.notify(queue: .main) {
-            guard location != nil else {
+            guard let location = location else {
                 completion(nil, nil)
                 return
             }
             var city: String?
             dispatchGroup.enter()
-            LocationManager.shared.resolveLocationName(location: location!) { place in
+            LocationManager.shared.resolveLocationName(location: location) { place in
                 city = place
                 dispatchGroup.leave()
             }

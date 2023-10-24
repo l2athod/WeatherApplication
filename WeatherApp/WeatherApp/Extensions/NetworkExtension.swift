@@ -2,17 +2,16 @@ import Foundation
 
 extension Encodable {
     func convertToURLQueryItems() -> [URLQueryItem]? {
-        do {
-            let data = try? JSONEncoder().encode(self)
-            let queryItems = (try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)).flatMap({ $0 as? [String: Any] })
-            
-            var result: [URLQueryItem] = []
-            queryItems?.forEach({ (key, value) in
-                guard let value = value as? String, value.count != 0 else { return }
-                result.append(URLQueryItem(name: key, value: value))
-            })
-            return result
-        }
+        let data = try? JSONEncoder().encode(self)
+        guard let data = data else { return nil }
+        let queryItems = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap({ $0 as? [String: Any] })
+        
+        var result: [URLQueryItem] = []
+        queryItems?.forEach({ key, value in
+            guard let value = value as? String, !value.isEmpty else { return }
+            result.append(URLQueryItem(name: key, value: value))
+        })
+        return result
     }
 }
 
@@ -22,15 +21,16 @@ extension URLRequest {
         if let queryParams = queryParams {
             var urlrequest = URLComponents(url: url, resolvingAgainstBaseURL: false)
             urlrequest?.queryItems = queryParams.convertToURLQueryItems()
-            requestURL = (urlrequest?.url)!
-            
+            if let urlrequestURL = urlrequest?.url {
+                requestURL = urlrequestURL
+            }
         }
         
         var request = URLRequest(url: requestURL)
         request.httpMethod = method
         
-        headers?.forEach({ (key, value) in
-            guard !key.isEmpty , !value.isEmpty else { return }
+        headers?.forEach({ key, value in
+            guard !key.isEmpty, !value.isEmpty else { return }
             request.setValue(value, forHTTPHeaderField: key)
         })
         return request
@@ -41,8 +41,9 @@ extension URLRequest {
         if let queryParams = queryParams {
             var urlrequest = URLComponents(url: url, resolvingAgainstBaseURL: false)
             urlrequest?.queryItems = queryParams.convertToURLQueryItems()
-            requestURL = (urlrequest?.url)!
-            
+            if let urlrequestURL = urlrequest?.url {
+                requestURL = urlrequestURL
+            }
         }
         
         var request = URLRequest(url: requestURL)
@@ -53,8 +54,8 @@ extension URLRequest {
             request.httpBody = data
         }
         
-        headers?.forEach({ (key, value) in
-            guard !key.isEmpty , !value.isEmpty else { return }
+        headers?.forEach({ key, value in
+            guard !key.isEmpty, !value.isEmpty else { return }
             request.setValue(value, forHTTPHeaderField: key)
         })
         return request

@@ -4,7 +4,7 @@ import UIKit
 class WeatherForecastCell: UICollectionViewCell {
     static let identifier = String(describing: WeatherForecastCell.self)
     
-    private lazy var timeLabel: UILabel! = {
+    private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -14,7 +14,7 @@ class WeatherForecastCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var tempreatureLabel: UILabel! = {
+    private lazy var tempreatureLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -24,16 +24,16 @@ class WeatherForecastCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var weatherImage: UIImageView! = {
+    private lazy var weatherImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 80),
+            imageView.widthAnchor.constraint(equalToConstant: 80)
         ])
         return imageView
     }()
     
-    private lazy var weatherReportStackView: UIStackView! = {
+    private lazy var weatherReportStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [timeLabel, tempreatureLabel, weatherImage])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -60,13 +60,13 @@ class WeatherForecastCell: UICollectionViewCell {
             weatherReportStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
             weatherReportStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
             weatherReportStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            weatherReportStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -0),
+            weatherReportStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -0)
         ])
     }
     
     func configure(indexPath: IndexPath? = nil, data: WeatherForecastModel) {
         timeLabel.text = data.time
-        tempreatureLabel.text = String(data.tempreature).appending("c")
+        tempreatureLabel.text = data.tempreature
         weatherImage.image = UIImage(named: data.image)
     }
 }

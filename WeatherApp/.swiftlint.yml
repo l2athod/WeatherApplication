@@ -1,0 +1,19 @@
+disabled_rules:
+ - trailing_whitespace
+ - empty_line_after_guard
+ - multiline_function_chains
+ - empty_line_after_super
+ - variable_declaration_whitespace
+ - switch_case_alignment
+ - modifier_order
+ - line_length
+ - identifier_name
+
+included:
+ - WeatherApp
+
+excluded:
+ - Carthage
+ - Pods
+ 
+reporter: "xcode"

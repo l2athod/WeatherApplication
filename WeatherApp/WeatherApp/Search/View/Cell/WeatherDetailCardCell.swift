@@ -4,7 +4,7 @@ import UIKit
 class WeatherDetailCardCell: UICollectionViewCell {
     static let identifier = String(describing: WeatherDetailCardCell.self)
     
-    private lazy var tempreatureLabel: UILabel! = {
+    private lazy var tempreatureLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -13,18 +13,18 @@ class WeatherDetailCardCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var imageView: UIImageView! = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 80),
-            imageView.heightAnchor.constraint(equalToConstant: 80),
+            imageView.heightAnchor.constraint(equalToConstant: 80)
         ])
         return imageView
     }()
     
-    private lazy var weatherLabel: UILabel! = {
+    private lazy var weatherLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -34,7 +34,7 @@ class WeatherDetailCardCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var locationLabel: UILabel! = {
+    private lazy var locationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -43,7 +43,7 @@ class WeatherDetailCardCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var stackView: UIStackView! = {
+    private lazy var stackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [tempreatureLabel, imageView, weatherLabel, locationLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -53,7 +53,6 @@ class WeatherDetailCardCell: UICollectionViewCell {
         stack.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return stack
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,7 +72,7 @@ class WeatherDetailCardCell: UICollectionViewCell {
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
     

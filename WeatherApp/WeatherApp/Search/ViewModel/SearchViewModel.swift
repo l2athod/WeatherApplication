@@ -29,11 +29,12 @@ class SearchViewModel: SearchViewModelProtocol {
     }
     
     func saveCDEntity<T: Decodable>(city: String, data: T) {
+        guard let data = data as? DetailCardModel else { return }
         let response = detailCoreDataService.fetchById(city: city.capitalized)
         guard response != nil else {
-            _ = detailCoreDataService.insert(data: data as! DetailCardModel)
+            _ = detailCoreDataService.insert(data: data)
             return
         }
-        _ = detailCoreDataService.update(data: data as! DetailCardModel)
+        _ = detailCoreDataService.update(data: data)
     }
 }

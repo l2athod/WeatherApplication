@@ -6,7 +6,7 @@ protocol HomeViewModelProtocol: AnyObject {
     func getWeatherForecast(location: CLLocation, completion: @escaping (WeatherForecastResponse?) -> Void)
 }
 
-class HomeViewModel: HomeViewModelProtocol{
+class HomeViewModel: HomeViewModelProtocol {
     private var weatherService: IWeatherService
     
     init(weatherService: WeatherService = WeatherService()) {
@@ -19,7 +19,8 @@ class HomeViewModel: HomeViewModelProtocol{
                 completion(nil, nil)
                 return
             }
-            self?.weatherService.getWeather(type: WeatherDataResponse.self, city: city!) { response in
+            guard let city = city else { return completion(nil, nil) }
+            self?.weatherService.getWeather(type: WeatherDataResponse.self, city: city) { response in
                 switch response {
                     case .success(let response):
                         completion(response, location)

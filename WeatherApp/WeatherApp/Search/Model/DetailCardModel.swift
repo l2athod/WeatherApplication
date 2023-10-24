@@ -10,9 +10,9 @@ class DetailCardModel: Decodable {
     let location: String
     let lat: Double?
     let long: Double?
-    let tempreatureInfo: String?
+    let tempreatureInfo: String
     
-    init(id: UUID = UUID(), tempreature: Double, image: String, weatherdescription: String, location: String, lat: Double? = nil, long: Double? = nil, tempreatureInfo: String? = nil) {
+    init(id: UUID = UUID(), tempreature: Double, image: String, weatherdescription: String, location: String, lat: Double? = nil, long: Double? = nil, tempreatureInfo: String) {
         self.id = id
         self.tempreature = tempreature
         self.image = image

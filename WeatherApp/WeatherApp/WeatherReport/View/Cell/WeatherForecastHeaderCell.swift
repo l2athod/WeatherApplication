@@ -4,7 +4,7 @@ import UIKit
 class WeatherForecastHeadercell: UICollectionViewCell {
     static let identifier = String(describing: WeatherForecastHeadercell.self)
     
-    private lazy var forecastLabel: UILabel! = {
+    private lazy var forecastLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .robotoSlabLight(ofSize: 24)
@@ -29,7 +29,7 @@ class WeatherForecastHeadercell: UICollectionViewCell {
             forecastLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             forecastLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             forecastLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            forecastLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            forecastLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }    
     

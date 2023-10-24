@@ -1,17 +1,18 @@
 import Foundation
 
-protocol APIRouter{
-    var host:        String { get }
-    var schema:      String{ get}
-    var path:        String {get}
-    var method:     String {get}
-    var queryItems:  [URLQueryItem]{get}
-    var headers:     [(String,String)]{get}
-    var statusCode:  Int{get}
-    var body:        Codable? {get}
+protocol APIRouter {
+    var host: String { get }
+    var schema: String { get }
+    var path: String { get }
+    var method: String { get }
+    var queryItems: [URLQueryItem] { get }
+    var headers: [(String, String)] { get }
+    var statusCode: Int { get }
+    var body: Codable? { get }
 }
 
 enum DataError: Error {
+    case invalidResponseCode
     case invalidURL
     case invalidResponse
     case encodeError(Error?)
@@ -36,29 +37,27 @@ final class APIManager {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = router.method
         
-        router.headers.forEach { (key, value) in
+        router.headers.forEach { key, value in
             urlRequest.addValue(value, forHTTPHeaderField: key)
         }
         
         if let requestBody = router.body {
-            do{
+            do {
                 let data = try JSONEncoder().encode(requestBody)
                 urlRequest.httpBody = data
-            }
-            catch{
+            } catch {
                 completion(.failure(.encodeError(error)))
             }
-            
         }
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            let response = response as! HTTPURLResponse
-            guard let data = data, error == nil, data.count != 0  else { return completion(.failure(.invalidURL)) }
+            guard let response = response as? HTTPURLResponse else { return completion(.failure(.invalidResponseCode)) }
+            guard let data = data, error == nil, !data.isEmpty  else { return completion(.failure(.invalidURL)) }
             guard (200...299).contains(response.statusCode) else { return completion(.failure(.invalidResponse)) }
             do {
                 let result = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(result))
-            } catch (let error) {
+            } catch {
                 print(error.localizedDescription)
                 completion(.failure(.decodeError(error)))
             }

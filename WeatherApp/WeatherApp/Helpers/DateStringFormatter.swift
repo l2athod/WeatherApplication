@@ -1,13 +1,15 @@
 import Foundation
 
 struct DateStringFormatter {
-    static func convertToString(date: Date, format: String) -> String {
+    static func convertToString(date: Date?, format: String) -> String {
+        guard let date = date else { return "dateFormatError" }
         let formatter = DateFormatter()
         formatter.dateFormat = format
         return formatter.string(from: date)
     }
     
-    static func convertDateFormat(date: String, from: String, to: String) -> String? {
+    static func convertDateFormat(date: String?, from: String, to: String) -> String? {
+        guard let date = date else { return nil }
         let fromFormatter = DateFormatter()
         fromFormatter.dateFormat = from
         
@@ -20,9 +22,10 @@ struct DateStringFormatter {
         return toFormatter.string(from: date)
     }
     
-    static func convertDate(date: String, format: String) -> Date {
+    static func convertDate(date: String?, format: String) -> Date? {
+        guard let date = date else { return nil }
         let formatter = DateFormatter()
         formatter.dateFormat = format
-        return formatter.date(from: date)!
+        return formatter.date(from: date)
     }
 }

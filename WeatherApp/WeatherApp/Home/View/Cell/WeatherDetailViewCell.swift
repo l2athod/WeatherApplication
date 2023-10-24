@@ -3,18 +3,18 @@ import UIKit
 class WeatherDetailViewCell: UICollectionViewCell {
     static let identifier = String(describing: WeatherDetailViewCell.self)
     
-    private lazy var imageIcon: UIImageView! = {
+    private lazy var imageIcon: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(equalToConstant: 70),
-            view.heightAnchor.constraint(equalToConstant: 70),
+            view.heightAnchor.constraint(equalToConstant: 70)
         ])
         return view
     }()
     
-    private lazy var tempreatureInfoLabel: UILabel! = {
+    private lazy var tempreatureInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -22,7 +22,7 @@ class WeatherDetailViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var horizontalStackView: UIStackView! = {
+    private lazy var horizontalStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [imageIcon, tempreatureInfoLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -50,7 +50,7 @@ class WeatherDetailViewCell: UICollectionViewCell {
             horizontalStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
             horizontalStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -24),
             horizontalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            horizontalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            horizontalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
     
@@ -63,6 +63,6 @@ class WeatherDetailViewCell: UICollectionViewCell {
             tempreatureInfoLabel.textColor = .black
         }
         imageIcon.image = UIImage(named: data.image)
-        tempreatureInfoLabel.attributedText = data.tempreatureInfo!
+        tempreatureInfoLabel.attributedText = data.tempreatureInfo
     }
 }

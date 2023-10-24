@@ -7,10 +7,10 @@ class HomeView: UIView {
     private let todayLabelText = "Today"
     private let viewReportButtonText = "View Report"
     
-    private var weatherForecastResponse: WeatherForecastResponse? = nil
+    private var weatherForecastResponse: WeatherForecastResponse?
     private var todayWeatherforecastList: [TodayWeatherModel] = []
     
-    private lazy var weatherImageCollectionView: UICollectionView! = {
+    private lazy var weatherImageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -26,7 +26,7 @@ class HomeView: UIView {
         return view
     }()
     
-    private lazy var scrollView: UIScrollView! = {
+    private lazy var scrollView: UIScrollView = {
        let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsVerticalScrollIndicator = false
@@ -34,7 +34,7 @@ class HomeView: UIView {
         return view
     }()
     
-    private lazy var locationNameLabel: UILabel! = {
+    private lazy var locationNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .robotoSlabMedium(ofSize: 30)
@@ -42,7 +42,7 @@ class HomeView: UIView {
         return label
     }()
     
-    private lazy var dateLabel: UILabel! = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .robotoSlabMedium(ofSize: 14)
@@ -50,17 +50,17 @@ class HomeView: UIView {
         return label
     }()
     
-    private lazy var currentLocationImage: UIImageView! = {
+    private lazy var currentLocationImage: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(equalToConstant: 155),
-            view.heightAnchor.constraint(equalToConstant: 155),
+            view.heightAnchor.constraint(equalToConstant: 155)
         ])
         return view
     }()
     
-    private lazy var tempreatureLabel: UILabel! = {
+    private lazy var tempreatureLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textColor = .white
@@ -68,7 +68,7 @@ class HomeView: UIView {
         return view
     }()
     
-    private lazy var tempreatureInfoLabel: UILabel! = {
+    private lazy var tempreatureInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -77,7 +77,7 @@ class HomeView: UIView {
         return label
     }()
     
-    private lazy var humidityInfoLabel: UILabel! = {
+    private lazy var humidityInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -86,7 +86,7 @@ class HomeView: UIView {
         return label
     }()
     
-    private lazy var windInfoLabel: UILabel! = {
+    private lazy var windInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -95,7 +95,7 @@ class HomeView: UIView {
         return label
     }()
     
-    private lazy var weatherInfoHorizontalStackView: UIStackView! = {
+    private lazy var weatherInfoHorizontalStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [tempreatureInfoLabel, humidityInfoLabel, windInfoLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -103,7 +103,7 @@ class HomeView: UIView {
         return stack
     }()
     
-    private lazy var todayLabel: UILabel! = {
+    private lazy var todayLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = todayLabelText
@@ -112,7 +112,7 @@ class HomeView: UIView {
         return label
     }()
     
-    private lazy var viewReportButton: UIButton! = {
+    private lazy var viewReportButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
@@ -123,7 +123,7 @@ class HomeView: UIView {
         return button
     }()
     
-    private lazy var horizontalStackView: UIStackView! = {
+    private lazy var horizontalStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [todayLabel, viewReportButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -131,10 +131,10 @@ class HomeView: UIView {
         return stack
     }()
     
-    private lazy var weatherForecastCollectionView: UICollectionView! = {
+    private lazy var weatherForecastCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 166 , height: 85)
+        layout.itemSize = CGSize(width: 166, height: 85)
         layout.minimumInteritemSpacing = 16
         
         let view = UICollectionView(frame: bounds, collectionViewLayout: layout)
@@ -146,7 +146,7 @@ class HomeView: UIView {
         return view
     }()
     
-    private lazy var stackView: UIStackView! = {
+    private lazy var stackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [locationNameLabel, dateLabel, currentLocationImage, tempreatureLabel, weatherInfoHorizontalStackView, horizontalStackView, weatherForecastCollectionView])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -195,7 +195,7 @@ class HomeView: UIView {
             
             weatherForecastCollectionView.leftAnchor.constraint(equalTo: stackView.leftAnchor, constant: 16),
             weatherForecastCollectionView.rightAnchor.constraint(equalTo: stackView.rightAnchor, constant: -16),
-            weatherForecastCollectionView.heightAnchor.constraint(equalToConstant: 90),
+            weatherForecastCollectionView.heightAnchor.constraint(equalToConstant: 90)
         ])
         weatherImageCollectionView.register(WeatherImageCell.self, forCellWithReuseIdentifier: WeatherImageCell.identifier)
         weatherImageCollectionView.delegate = self
@@ -217,19 +217,15 @@ class HomeView: UIView {
 
 extension HomeView {
     func configure(data: HomeDataModel) {
-        let weatherImage: WeatherImage = WeatherImage(rawValue: data.weatherImage)!
-        
         DispatchQueue.main.async { [weak self] in
             self?.locationNameLabel.text = data.loction
-            self?.currentLocationImage.image = UIImage(named: weatherImage.weatherImage)
             self?.tempreatureLabel.text = data.tempreature
             self?.tempreatureInfoLabel.attributedText = NSAttributedString(string: data.tempreatureInfo)
             self?.humidityInfoLabel.attributedText = NSAttributedString(string: data.humidity)
             self?.windInfoLabel.attributedText = NSAttributedString(string: data.wind)
+            self?.currentLocationImage.image = UIImage(named: data.weatherImage)
         }
     }
-    
-   
     
     func configure(forecastresponse: WeatherForecastResponse, data: [TodayWeatherModel]) {
         weatherForecastResponse = forecastresponse
@@ -260,13 +256,13 @@ extension HomeView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
             case weatherImageCollectionView:
-                let cell = weatherImageCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherImageCell.identifier, for: indexPath) as? WeatherImageCell
-                cell?.configure(indexPath: indexPath, data: weatherImageData[indexPath.row])
-                return cell!
+                guard let cell = weatherImageCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherImageCell.identifier, for: indexPath) as? WeatherImageCell else { return UICollectionViewCell() }
+                cell.configure(indexPath: indexPath, data: weatherImageData[indexPath.row])
+                return cell
             case weatherForecastCollectionView:
-                let cell = weatherForecastCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherDetailViewCell.identifier, for: indexPath) as? WeatherDetailViewCell
-                cell?.configure(indexPath: indexPath, data: todayWeatherforecastList[indexPath.row])
-                return cell!
+                guard let cell = weatherForecastCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherDetailViewCell.identifier, for: indexPath) as? WeatherDetailViewCell else { return UICollectionViewCell() }
+                cell.configure(indexPath: indexPath, data: todayWeatherforecastList[indexPath.row])
+                return cell
             default:
                 return UICollectionViewCell()
         }

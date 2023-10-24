@@ -6,12 +6,12 @@ protocol SearchViewDelegate: AnyObject {
 }
 
 class SearchView: UIView {
-    weak var delegate: SearchViewDelegate? = nil
+    weak var delegate: SearchViewDelegate?
     private let locationLabelText = "Pick a location"
     private let infoLabelText = "Type the area or city you want to know the detailed weather information at this time."
     private var detailCardList: [DetailCardModel] = []
 
-    private lazy var scrollView: UIScrollView! = {
+    private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsVerticalScrollIndicator = false
@@ -19,7 +19,7 @@ class SearchView: UIView {
         return view
     }()
     
-    private lazy var locatioLabel: UILabel! = {
+    private lazy var locatioLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .robotoSlabMedium(ofSize: 30)
@@ -28,7 +28,7 @@ class SearchView: UIView {
         return label
     }()
     
-    private lazy var infoLabel: UILabel! = {
+    private lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -43,7 +43,7 @@ class SearchView: UIView {
         let searchBar = UITextField()
         let placeholderText = "Search"
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white,
+            .foregroundColor: UIColor.white
         ]
         let attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ class SearchView: UIView {
         iconView.contentMode = .scaleAspectFit
         
         NSLayoutConstraint.activate([
-            iconView.widthAnchor.constraint(equalToConstant: 24),
+            iconView.widthAnchor.constraint(equalToConstant: 24)
         ])
         return iconView
     }()
@@ -74,7 +74,7 @@ class SearchView: UIView {
         return view
     }()
     
-    private lazy var stackView: UIStackView! = {
+    private lazy var stackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [locatioLabel, infoLabel, searchView])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -83,7 +83,7 @@ class SearchView: UIView {
         return stack
     }()
     
-    private lazy var cardCollectionView: UICollectionView! = {
+    private lazy var cardCollectionView: UICollectionView = {
        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: 148, height: 180)
@@ -133,7 +133,6 @@ class SearchView: UIView {
             searchTextField.bottomAnchor.constraint(equalTo: searchView.bottomAnchor),
             searchTextField.rightAnchor.constraint(equalTo: searchIconView.leftAnchor, constant: -8),
 
-            
             searchIconView.rightAnchor.constraint(equalTo: searchView.rightAnchor, constant: -20),
             searchIconView.topAnchor.constraint(equalTo: searchView.topAnchor),
             searchIconView.bottomAnchor.constraint(equalTo: searchView.bottomAnchor),
@@ -154,7 +153,7 @@ class SearchView: UIView {
 
 extension SearchView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView{
+        switch collectionView {
             case cardCollectionView:
                 return detailCardList.count
             default:
@@ -165,9 +164,9 @@ extension SearchView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
             case cardCollectionView:
-                let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherDetailCardCell.identifier, for: indexPath) as? WeatherDetailCardCell
-                cell?.configure(indexPath: indexPath, data: detailCardList[indexPath.row])
-                return cell!
+                guard let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: WeatherDetailCardCell.identifier, for: indexPath) as? WeatherDetailCardCell else { return UICollectionViewCell() }
+                cell.configure(indexPath: indexPath, data: detailCardList[indexPath.row])
+                return cell
             default:
                 return UICollectionViewCell()
         }
@@ -176,8 +175,9 @@ extension SearchView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSo
 
 extension SearchView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let text = textField.text!
-        delegate?.searchLocationWeatherInfo(text: text)
+        if let text = textField.text, !text.isEmpty {
+            delegate?.searchLocationWeatherInfo(text: text)
+        }
         return true
     }
     

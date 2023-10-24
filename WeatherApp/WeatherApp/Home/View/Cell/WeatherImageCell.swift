@@ -4,18 +4,18 @@ import UIKit
 class WeatherImageCell: UICollectionViewCell {
     static let identifier = String(describing: WeatherImageCell.self)
     
-    private lazy var imageIcon: UIImageView! = {
+    private lazy var imageIcon: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(equalToConstant: 50),
-            view.heightAnchor.constraint(equalToConstant: 50),
+            view.heightAnchor.constraint(equalToConstant: 50)
         ])
         return view
     }()
     
-    private lazy var imageTitle: UILabel! = {
+    private lazy var imageTitle: UILabel = {
        let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textAlignment = .center
@@ -25,7 +25,7 @@ class WeatherImageCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var stackView: UIStackView! = {
+    private lazy var stackView: UIStackView = {
        let stack = UIStackView(arrangedSubviews: [imageIcon, imageTitle])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -49,7 +49,7 @@ class WeatherImageCell: UICollectionViewCell {
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 0),
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 0),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
         ])
     }
 

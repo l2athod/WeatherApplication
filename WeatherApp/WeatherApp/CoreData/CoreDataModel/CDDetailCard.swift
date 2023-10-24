@@ -1,10 +1,6 @@
 import Foundation
 import CoreData
 
-
-import Foundation
-import CoreData
-
 @objc(CDDetailCard)
 public class CDDetailCard: NSManagedObject {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDDetailCard> {
